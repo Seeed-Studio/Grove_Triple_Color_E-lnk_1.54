@@ -1,7 +1,7 @@
 Grove Triple Color E-Ink Display 1.54
 =================================  
 
-![Grove Triple Color E-Ink Display 1.54](https://github.com/linux-downey/Grove_touch_sensor_MPR121/blob/master/MPR121_module.png)  
+![Grove Triple Color E-Ink Display 1.54](https://github.com/Jenkinlu001/Seeed_Picture/blob/master/154e-ink.jpg)  
 
 
 Introduction of sensor
