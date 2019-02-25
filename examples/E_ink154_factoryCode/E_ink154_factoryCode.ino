@@ -35,9 +35,9 @@
 
 //Notice: When using the SAMD board, select the serial port(Serial/Serial1/SerialUSB...)
 #ifdef ARDUINO_SAMD_VARIANT_COMPLIANCE
-  #define SERIAL Serial
+	#define SERIAL Serial
 #else
-  #define SERIAL Serial
+	#define SERIAL Serial
 #endif
 
 
@@ -409,61 +409,49 @@ const unsigned char IMAGE_RED[] PROGMEM = { /* 0X00,0X01,0XC8,0X00,0XC8,0X00, */
 
 
 #define RECV_ERROR       -1
-#define CONTINUE_TRANS   0
-#define RECV_DONE        1
+#define CONTINUE_TRANS    0
+#define RECV_DONE         1
 
-int begin_flag=0;
+int begin_flag = 0;
 //Send data to e-link board.
-void serial_send_data(const uint8_t* data,uint32_t data_len)
-{
-	for(int i=0;i<data_len;i++)
+void serial_send_data(const uint8_t* data,uint32_t data_len) {
+	for(int i = 0; i < data_len; i++)
 	{
 		SERIAL.write(pgm_read_byte(&data[i]));	
 	}
 }
 
 //Send image array
-void write_image_picture(void)
-{
-	for(int i=0;i<38;i++)
-	 {
-	 	serial_send_data(&IMAGE_BLACK[i*76],76);
-		
-	 	delay(70);
-	 }
-	 delay(70);
-	for(int i=0;i<38;i++)
-	{
-		serial_send_data(&IMAGE_RED[i*76],76);
+void write_image_picture(void) {
+	for(int i = 0; i < 38; i++) {
+		serial_send_data(&IMAGE_BLACK[i*76],76);
 		delay(70);
-		
 	}
-	begin_flag=0;
+	delay(70);
+	for(int i = 0; i < 38; i++) {
+		serial_send_data(&IMAGE_RED[i*76],76);
+		delay(70);	
+	}
+	begin_flag = 0;
 }
 
 //Send the start transfer command
-void send_begin()
-{
-	char str='a';
+void send_begin() {
+	char str = 'a';
 	SERIAL.write(str);
-	
-	while(1)
-	{
-		if(SERIAL.available()>0)
-		{
+	while(1) {
+		if(SERIAL.available() > 0) {
 			delay(10);
-			char str1=SERIAL.read();
+			char str1 = SERIAL.read();
 			Serial.print(str1);
-			if(str1=='b')
-			{
+			if(str1 == 'b') {
 				break;
 			}
 		}		
 	}
 }
 
-void setup()
-{
+void setup() {
 	SERIAL.begin(230400);
 	delay(10);
 	send_begin();
