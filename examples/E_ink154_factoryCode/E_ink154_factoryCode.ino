@@ -414,73 +414,61 @@ const unsigned char IMAGE_RED[] PROGMEM = { /* 0X00,0X01,0XC8,0X00,0XC8,0X00, */
 
 int begin_flag=0;
 //Send data to e-link board.
-void serial_send_data(const uint8_t* data,uint32_t data_len)
-{
-	for(int i=0;i<data_len;i++)
-	{
-		SERIAL.write(pgm_read_byte(&data[i]));	
-	}
+void serial_send_data(const uint8_t* data,uint32_t data_len) {
+    for( int i = 0; i < data_len; i++)
+    {
+        SERIAL.write(pgm_read_byte(&data[i]));	
+    }
 }
 
 //Send image array
-void write_image_picture(void)
-{
-	for(int i=0;i<38;i++)
-	 {
-	 	serial_send_data(&IMAGE_BLACK[i*76],76);
-		
-	 	delay(70);
-	 }
-	 delay(70);
-	for(int i=0;i<38;i++)
-	{
-		serial_send_data(&IMAGE_RED[i*76],76);
-		delay(70);
-		
-	}
-	begin_flag=0;
+void write_image_picture(void) {
+    for( int i = 0; i < 38; i++) {
+        serial_send_data(&IMAGE_BLACK[i*76],76);
+        delay(70);
+    }
+    delay(70);
+    for( int i = 0; i < 38; i++) {
+        serial_send_data(&IMAGE_RED[i*76],76);
+	delay(70);	
+    }
+    begin_flag=0;
 }
 
 //Send the start transfer command
-void send_begin()
-{
-	char str='a';
-	SERIAL.write(str);
-	
-	while(1)
-	{
-		if(SERIAL.available()>0)
-		{
-			delay(10);
-			char str1=SERIAL.read();
-			Serial.print(str1);
-			if(str1=='b')
-			{
-				break;
-			}
-		}		
-	}
+void send_begin() {
+    char str='a';
+    SERIAL.write(str);
+    while(1) {
+        if( SERIAL.available()>0 ) {
+	    delay(10);
+	    char str1=SERIAL.read();
+	    Serial.print(str1);
+	    if( str1 == 'b' ) {
+	        break;
+	    }
+	}		
+    }
 }
 
-void setup()
-{
-	SERIAL.begin(230400);
-	delay(10);
-	send_begin();
-	delay(2000);
-	write_image_picture();
-	delay(2000);
+void setup() {
+    SERIAL.begin(230400);
+    delay(10);
+    send_begin();
+    delay(2000);
+    write_image_picture();
+    delay(2000);
 }
 
 
 
 void loop()
 {
-	/*
-	//180s is the safe time to display
-	delay(180000);
-	send_begin();
-	delay(2000);
-	write_image_picture();
-	*/
+    /*
+    //180s is the safe time to display
+    delay(180000);
+    send_begin();
+    delay(2000);
+    write_image_picture();
+    */
 }
