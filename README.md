@@ -1,4 +1,4 @@
-Grove Triple Color E-Ink Display 1.54
+Grove Triple Color E-Ink Display 1.54  [![Build Status](https://travis-ci.com/Seeed-Studio/Grove_Triple_Color_E-lnk_1.54.svg?branch=master)](https://travis-ci.com/Seeed-Studio/Grove_Triple_Color_E-lnk_1.54)
 =================================  
 
 ![Grove Triple Color E-Ink Display 1.54](https://github.com/Jenkinlu001/Seeed_Picture/blob/master/154e-ink.jpg)  
